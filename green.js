@@ -48,8 +48,8 @@
         // Lesson 1
         push('MICROFORTH: LESSON 1 - THE STACK', COL_TITLE, FONT_TITLE);
         push('----------------------------------', COL_SEP, FONT_META);
-        body('Welcome. Forth is a stack-based language. You push numbers onto a stack, and words (commands) pop them off to do work.');
-        body('Type a number to push it. Type a dot . to pop the top number and print it. Try typing 42 .');
+        body('Welcome. Forth is stack-based. You push data onto a stack, and words pop it off to do work.');
+        body('Type a number to push it. Type a dot . to pop and print it. Try typing 42 .');
         push('Or reason about the output of 1 2 3 . . .', COL_LINK, FONT_META);
         push('Click next when you are ready to continue.', COL_LINK, FONT_META);
         ALL_ITEMS.push({ pageBreak: true });
