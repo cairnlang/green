@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,104 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000;
-            display: flex; /* Center the container on the screen */
+            background-color: #1a1a1e;
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        /* --- CRT Monitor Bezel --- */
+        #crt-bezel {
+            position: relative;
+            /* Outer shell: rounded rectangle of aged beige plastic */
+            padding: 38px 48px 52px 48px;
+            /* thicker at bottom like a real monitor */
+            border-radius: 18px;
+            /* Layered gradients: 3D moulding effect */
+            background:
+                /* Top highlight (light hitting the top edge) */
+                linear-gradient(180deg,
+                    rgba(255, 255, 240, 0.35) 0%,
+                    rgba(0, 0, 0, 0) 8%),
+                /* Bottom shadow (underside is darker) */
+                linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.25) 0%,
+                    rgba(0, 0, 0, 0) 12%),
+                /* Left-to-right subtle gradient for 3D curvature */
+                linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.08) 0%,
+                    rgba(255, 255, 240, 0.06) 50%,
+                    rgba(0, 0, 0, 0.10) 100%),
+                /* Base beige colour with subtle yellow aging */
+                linear-gradient(170deg,
+                    #d4cbb8 0%,
+                    #c8bfa8 30%,
+                    #beb59e 70%,
+                    #b0a790 100%);
+            /* Outer 3D depth via box-shadow */
+            box-shadow:
+                /* Ridge highlight on top-left */
+                inset 0 2px 0 0 rgba(255, 255, 240, 0.25),
+                inset 2px 0 0 0 rgba(255, 255, 240, 0.12),
+                /* Ridge shadow on bottom-right */
+                inset 0 -2px 0 0 rgba(0, 0, 0, 0.20),
+                inset -2px 0 0 0 rgba(0, 0, 0, 0.10),
+                /* Drop shadow onto the dark background */
+                0 8px 32px rgba(0, 0, 0, 0.7),
+                0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Noise/grain overlay via SVG filter applied as a pseudo-element */
+        #crt-bezel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            filter: url(#bezelNoise);
+            background: rgba(180, 170, 150, 0.06);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Dirt/aging stains — subtle darker patches */
+        #crt-bezel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background:
+                radial-gradient(ellipse 120px 80px at 15% 85%, rgba(100, 90, 60, 0.10) 0%, transparent 70%),
+                radial-gradient(ellipse 90px 60px at 80% 10%, rgba(80, 70, 50, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 200px 100px at 50% 95%, rgba(60, 50, 30, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Recessed screen well — the dark border right around the glass */
+        #crt-screen-well {
+            position: relative;
+            border-radius: 8px;
+            padding: 4px;
+            background: linear-gradient(145deg, #2a2a2a 0%, #0a0a0a 100%);
+            box-shadow:
+                inset 0 2px 6px rgba(0, 0, 0, 0.8),
+                inset 0 -1px 3px rgba(255, 255, 240, 0.05);
+            z-index: 2;
+        }
+
         #crt-container {
             position: relative;
-            width: 800px; /* Fixed classic dimension */
+            width: 800px;
             height: 600px;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
         #crt-canvas {
@@ -39,19 +122,26 @@
             pointer-events: none;
             color: transparent;
         }
-        
+
         #text-overlay span {
             position: absolute;
             white-space: pre;
         }
     </style>
+
 </head>
+
 <body>
-    <div id="crt-container">
-        <canvas id="crt-canvas"></canvas>
-        <div id="text-overlay"></div>
+    <div id="crt-bezel">
+        <div id="crt-screen-well">
+            <div id="crt-container">
+                <canvas id="crt-canvas"></canvas>
+                <div id="text-overlay"></div>
+            </div>
+        </div>
     </div>
 
     <script src="green.js"></script>
 </body>
+
 </html>
