@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRT Subpixel Renderer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            display: flex; /* Center the container on the screen */
+            align-items: center;
+            justify-content: center;
+        }
+
+        #crt-container {
+            position: relative;
+            width: 800px; /* Fixed classic dimension */
+            height: 600px;
+        }
+
+        #crt-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            color: transparent;
+        }
+        
+        #text-overlay span {
+            position: absolute;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div id="crt-container">
+        <canvas id="crt-canvas"></canvas>
+        <div id="text-overlay"></div>
+    </div>
+
+    <script src="green.js"></script>
+</body>
+</html>
